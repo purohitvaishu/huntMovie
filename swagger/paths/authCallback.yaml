@@ -1,0 +1,23 @@
+post:
+  tags:
+    - Upcoming
+  summary: Callabck for calling google-calendar API
+  description: ""
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/followMovie"
+      application/xml:
+        schema:
+          $ref: "#/components/schemas/followMovie"
+    description: code of movie
+    required: true
+  responses:
+    "200":
+      description: successfull operation
+    "404":
+      description: Movie not found
+  security:
+    - bearerAuth: []
+      api_key: []

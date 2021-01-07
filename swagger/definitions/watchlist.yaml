@@ -1,0 +1,28 @@
+type: object
+required:
+  - watchlist_movie_id
+  - watchlistStatus
+  - type
+properties:
+  _id:
+    type: string
+    format: int64
+  user_id:
+    type: string
+  watchlist_movie_id:
+    type: integer
+  type:
+    type: string
+    description: watchlist db
+    enum:
+      - Upcoming
+      - Trending
+      - Movie
+  status:
+    type: string
+    description: watchlist status
+    enum:
+      - Add to watchlist
+      - Delete to watchlist
+xml:
+  name: Watchlist

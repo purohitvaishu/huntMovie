@@ -1,0 +1,22 @@
+type: object
+properties:
+  _id:
+    type: string
+    format: int64
+  user_id:
+    type: string
+  friend_emailId:
+    type: string
+  message:
+    type: string
+  read_notification:
+    type: string
+    description: notification status
+    enum:
+      - Read notification
+      - Unread notification
+  created_at:
+    type: string
+    format: date-time
+xml:
+  name: notification

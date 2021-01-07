@@ -1,0 +1,17 @@
+get:
+  tags:
+    - Trending
+  summary: Show more info about movies
+  description: ""
+  parameters:
+    - in: query
+      name: info
+      description: Information about movie
+      required: true
+      schema:
+        type: string
+  responses:
+    "200":
+      description: successfull operation
+    "404":
+      description: Movie not found

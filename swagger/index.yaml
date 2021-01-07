@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  description: This Project will give list of old movies, upcoming movies or trending movies.And also a registered user can add/remove movie in calendar or send info to his/her friend through email.
+  version: 1.0.0
+  title: HuntMovie
+  termsOfService: ""
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  $ref: info/tag.yaml
+paths:
+  /movies/:
+    $ref: ./paths/movies.yaml
+  /movies/upcoming/:
+    $ref: ./paths/movieUpcoming.yaml
+  /movies/trending/:
+    $ref: ./paths/movieTrending.yaml
+  /movies/info/:
+    $ref: ./paths/movieInfo.yaml
+  /upcoming/info/:
+    $ref: ./paths/upcomingInfo.yaml
+  /trending/info/:
+    $ref: ./paths/trendingInfo.yaml
+  /users/movies/watchlist:
+    $ref: ./paths/movieWatchlist.yaml
+  /users/notification:
+    $ref: ./paths/notification.yaml
+  /users/movies/share:
+    $ref: ./paths/movieShare.yaml
+  /users/upcoming/event:
+    $ref: ./paths/upcomingEvent.yaml
+  /users/auth/callback:
+    $ref: ./paths/authCallback.yaml
+  /auth/login:
+    $ref: ./paths/authLogin.yaml
+  /auth/register:
+    $ref: ./paths/authRegister.yaml
+  /auth/google:
+    $ref: ../paths/authGoogle.yaml
+  /auth/google/return:
+    $ref: ./paths/googleReturn.yaml
+  /auth/twitter:
+    $ref: ./paths/authTwitter.yaml
+  /auth/twitter/return:
+    $ref: ./paths/twitterReturn.yaml
+  /auth/logout:
+    $ref: ./paths/authLogout.yaml
+servers:
+  - url: http://localhost:5000/
+  - url: https://localhost:5000/
+components:
+  requestBodies:
+    users:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/users"
+      description: The user details for login
+      required: true
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+    bearerAuth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://localhost:5000/users/auth/callback
+          scopes: {}
+  schemas:
+    movies:
+      $ref: ./definitions/movies.yaml
+    users:
+      $ref: ./definitions/users.yaml
+    notification:
+      $ref: ./definitions/notification.yaml
+    followMovie:
+      $ref: ./definitions/followMovie.yaml
+    tokens:
+      $ref: ./definitions/tokens.yaml
+    watchlist:
+      $ref: ./definitions/watchlist.yaml
+    upcoming:
+      $ref: ./definitions/upcoming.yaml
+    ApiResponse:
+      $ref: ./definitions/ApiResponse.yaml

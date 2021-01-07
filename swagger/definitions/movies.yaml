@@ -1,0 +1,19 @@
+type: object
+properties:
+  _id:
+    type: string
+    format: int64
+  movie_id:
+    type: integer
+    format: int32
+  overview:
+    type: string
+  title:
+    type: string
+  release_date:
+    type: string
+    format: date-time
+  poster_query:
+    type: string
+xml:
+  name: movies

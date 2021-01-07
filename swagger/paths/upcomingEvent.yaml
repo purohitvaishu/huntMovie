@@ -1,0 +1,40 @@
+post:
+  tags:
+    - Upcoming
+  summary: Add event in calender
+  description: ""
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/tokens"
+      application/xml:
+        schema:
+          $ref: "#/components/schemas/tokens"
+    description: Information about movie which want to share
+    required: true
+  responses:
+    "200":
+      description: successful operation
+      headers:
+        X-Rate-Limit:
+          description: calls per hour allowed by the user
+          schema:
+            type: integer
+            format: int32
+        X-Expires-After:
+          description: date in UTC when token expires
+          schema:
+            type: string
+            format: date-time
+      content:
+        application/xml:
+          schema:
+            $ref: "#/components/schemas/ApiResponse"
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiResponse"
+    "400":
+      description: Movie not found
+  security:
+    - api_key: []

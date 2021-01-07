@@ -1,0 +1,695 @@
+openapi: 3.0.0
+info:
+  description: This Project will give list of old movies, upcoming movies or trending
+    movies.And also a registered user can add/remove movie in calendar or send
+    info to his/her friend through email.
+  version: 1.0.0
+  title: HuntMovie
+  termsOfService: ""
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: Movie
+    description: Everything about old movies
+  - name: Upcoming
+    description: Everything about upcoming movies
+  - name: Trending
+    description: Everything about trending movies
+  - name: Watchlist
+    description: Everything about watchlist movie show only registered user
+  - name: Notification
+    description: Everything about notification to registered user
+  - name: User
+    description: Operations about user
+  - name: Share
+    description: Only registered user can share movie with friend
+paths:
+  /movies/:
+    get:
+      tags:
+        - Movie
+      summary: Show list of all released movies
+      description: ""
+      parameters:
+        - in: query
+          name: perPage
+          description: List of movie perpage display
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: page
+          description: Show page number
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+  /movies/upcoming/:
+    get:
+      tags:
+        - Upcoming
+      summary: Show list of all upcoming movies
+      description: ""
+      parameters:
+        - in: query
+          name: perPage
+          description: List of movie perpage display
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: page
+          description: Show page number
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+  /movies/trending/:
+    get:
+      tags:
+        - Trending
+      summary: Show list of all trending movies
+      description: ""
+      parameters:
+        - in: query
+          name: perPage
+          description: List of movie perpage display
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: page
+          description: Show page number
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+  /movies/info/:
+    get:
+      tags:
+        - Movie
+      summary: Show more info about movie
+      description: ""
+      parameters:
+        - in: query
+          name: info
+          description: Information about movie
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+  /upcoming/info/:
+    get:
+      tags:
+        - Upcoming
+      summary: Show more info about movie
+      description: ""
+      parameters:
+        - in: query
+          name: info
+          description: Information about movie
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+  /trending/info/:
+    get:
+      tags:
+        - Trending
+      summary: Show more info about movies
+      description: ""
+      parameters:
+        - in: query
+          name: info
+          description: Information about movie
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+  /users/movies/watchlist:
+    get:
+      tags:
+        - Watchlist
+      summary: Show list of all watchlist movies
+      description: ""
+      parameters:
+        - in: query
+          name: perPage
+          description: List of movie perpage display
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: page
+          description: Show page number
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+      security:
+        - api_key: []
+    post:
+      tags:
+        - Watchlist
+      summary: Add movie in watchlist only registered user
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/watchlist"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/watchlist"
+        description: Information about movie which add in watchlist
+        required: true
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+      security:
+        - api_key: []
+  /users/notification:
+    get:
+      tags:
+        - Notification
+      summary: Show list of all notification
+      description: ""
+      parameters:
+        - in: query
+          name: perPage
+          description: List of movie perpage display
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: page
+          description: Show page number
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+      security:
+        - api_key: []
+    post:
+      tags:
+        - Notification
+      summary: Status of read/unread notification
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/notification"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/notification"
+        description: Information about movie which add in watchlist
+        required: true
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+      security:
+        - api_key: []
+  /users/movies/share:
+    post:
+      tags:
+        - Share
+      summary: Share movie with a friend
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/notification"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/notification"
+        description: To whom you Want to share movie with movie information
+        required: true
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+      security:
+        - api_key: []
+  /users/upcoming/event:
+    post:
+      tags:
+        - Upcoming
+      summary: Add event in calender
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tokens"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/tokens"
+        description: Information about movie which want to share
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Movie not found
+      security:
+        - api_key: []
+  /users/auth/callback:
+    post:
+      tags:
+        - Upcoming
+      summary: Callabck for calling google-calendar API
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/followMovie"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/followMovie"
+        description: code of movie
+        required: true
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+      security:
+        - bearerAuth: []
+          api_key: []
+  /auth/login:
+    post:
+      tags:
+        - User
+      summary: Logs user into the system
+      description: ""
+      operationId: loginUser
+      parameters:
+        - name: emailId
+          in: query
+          description: The user emailid for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid username/password supplied
+  /auth/register:
+    get:
+      tags:
+        - User
+      summary: Register new user page
+      description: ""
+      responses:
+        "200":
+          description: Login Page found
+        "404":
+          description: Page not found
+    post:
+      tags:
+        - User
+      summary: Register new user Credential added
+      description: ""
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/users"
+        description: User's details
+        required: true
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Movie not found
+  /auth/google:
+    get:
+      tags:
+        - User
+      summary: Login through Google Authenticate
+      description: ""
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Page not found
+  /auth/google/return:
+    post:
+      tags:
+        - User
+      summary: Logs user into the system using google auth
+      description: ""
+      requestBody:
+        $ref: "#/components/requestBodies/users"
+      responses:
+        "200":
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid username/password supplied
+  /auth/twitter:
+    get:
+      tags:
+        - User
+      summary: Login through Twitter Authenticate
+      description: ""
+      responses:
+        "200":
+          description: successfull operation
+        "404":
+          description: Page not found
+  /auth/twitter/return:
+    post:
+      tags:
+        - User
+      summary: Logs user into the system using google auth
+      description: ""
+      requestBody:
+        $ref: "#/components/requestBodies/users"
+      responses:
+        "200":
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid username/password supplied
+  /auth/logout:
+    get:
+      tags:
+        - User
+      summary: Logs out current logged in user session
+      description: ""
+      operationId: logoutUser
+      responses:
+        default:
+          description: successful operation
+servers:
+  - url: http://localhost:5000/
+  - url: https://localhost:5000/
+components:
+  requestBodies:
+    users:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/users"
+      description: The user details for login
+      required: true
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+    bearerAuth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://localhost:5000/users/auth/callback
+          scopes: {}
+  schemas:
+    watchlist:
+      type: object
+      required:
+        - watchlist_movie_id
+        - watchlistStatus
+        - type
+      properties:
+        _id:
+          type: string
+          format: int64
+        user_id:
+          type: string
+        watchlist_movie_id:
+          type: integer
+        type:
+          type: string
+          description: watchlist db
+          enum:
+            - Upcoming
+            - Trending
+            - Movie
+        status:
+          type: string
+          description: watchlist status
+          enum:
+            - Add to watchlist
+            - Delete to watchlist
+      xml:
+        name: Watchlist
+    users:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: int64
+        fullname:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        dob:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      xml:
+        name: users
+    movies:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: int64
+        movie_id:
+          type: integer
+          format: int32
+        overview:
+          type: string
+        title:
+          type: string
+        release_date:
+          type: string
+          format: date-time
+        poster_query:
+          type: string
+      xml:
+        name: movies
+    notification:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: int64
+        user_id:
+          type: string
+        friend_emailId:
+          type: string
+        message:
+          type: string
+        read_notification:
+          type: string
+          description: notification status
+          enum:
+            - Read notification
+            - Unread notification
+        created_at:
+          type: string
+          format: date-time
+      xml:
+        name: notification
+    upcoming:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: int64
+        movie_id:
+          type: integer
+          format: int32
+        overview:
+          type: string
+        title:
+          type: string
+        release_date:
+          type: string
+          format: date-time
+        poster_query:
+          type: string
+        genres:
+          type: array
+          items:
+            type: integer
+        language:
+          type: string
+        cast:
+          type: object
+      xml:
+        name: upcoming
+    followMovie:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: int64
+        movie_id:
+          type: integer
+        user_id:
+          type: string
+        event_id:
+          type: string
+        status:
+          type: string
+          description: follow status
+          enum:
+            - follow
+            - unfollow
+      xml:
+        name: followMovie
+    tokens:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: int64
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+        scope:
+          type: string
+        expiry_date:
+          type: string
+          format: date-time
+      xml:
+        name: tokens
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string

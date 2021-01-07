@@ -1,0 +1,10 @@
+get:
+  tags:
+    - User
+  summary: Login through Google Authenticate
+  description: ""
+  responses:
+    "200":
+      description: successfull operation
+    "404":
+      description: Page not found

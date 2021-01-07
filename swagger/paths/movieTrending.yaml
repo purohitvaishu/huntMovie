@@ -1,0 +1,23 @@
+get:
+  tags:
+    - Trending
+  summary: Show list of all trending movies
+  description: ""
+  parameters:
+    - in: query
+      name: perPage
+      description: List of movie perpage display
+      required: true
+      schema:
+        type: integer
+    - in: query
+      name: page
+      description: Show page number
+      required: true
+      schema:
+        type: integer
+  responses:
+    "200":
+      description: successfull operation
+    "404":
+      description: Movie not found

@@ -1,0 +1,22 @@
+post:
+  tags:
+    - Share
+  summary: Share movie with a friend
+  description: ""
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/notification"
+      application/xml:
+        schema:
+          $ref: "#/components/schemas/notification"
+    description: To whom you Want to share movie with movie information
+    required: true
+  responses:
+    "200":
+      description: successfull operation
+    "404":
+      description: Movie not found
+  security:
+    - api_key: []

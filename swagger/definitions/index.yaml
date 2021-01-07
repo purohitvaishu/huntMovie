@@ -1,0 +1,16 @@
+movies:
+  $ref: ./movies.yaml
+users:
+  $ref: ./users.yaml
+notification:
+  $ref: ./notification.yaml
+followMovie:
+  $ref: ./followMovie.yaml
+tokens:
+  $ref: ./tokens.yaml
+watchlist:
+  $ref: ./watchlist.yaml
+upcoming:
+  $ref: ./upcoming.yaml
+ApiResponse:
+  $ref: ./ApiResponse.yaml

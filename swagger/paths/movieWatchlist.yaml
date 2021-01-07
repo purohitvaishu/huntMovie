@@ -1,0 +1,47 @@
+get:
+  tags:
+    - Watchlist
+  summary: Show list of all watchlist movies
+  description: ""
+  parameters:
+    - in: query
+      name: perPage
+      description: List of movie perpage display
+      required: true
+      schema:
+        type: integer
+    - in: query
+      name: page
+      description: Show page number
+      required: true
+      schema:
+        type: integer
+  responses:
+    "200":
+      description: successfull operation
+    "404":
+      description: Movie not found
+  security:
+    - api_key: []
+post:
+  tags:
+    - Watchlist
+  summary: Add movie in watchlist only registered user
+  description: ""
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/watchlist"
+      application/xml:
+        schema:
+          $ref: "#/components/schemas/watchlist"
+    description: Information about movie which add in watchlist
+    required: true
+  responses:
+    "200":
+      description: successfull operation
+    "404":
+      description: Movie not found
+  security:
+    - api_key: []

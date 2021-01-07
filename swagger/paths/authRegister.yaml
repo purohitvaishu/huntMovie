@@ -1,0 +1,27 @@
+get:
+  tags:
+    - User
+  summary: Register new user page
+  description: ""
+  responses:
+    "200":
+      description: Login Page found
+    "404":
+      description: Page not found
+post:
+  tags:
+    - User
+  summary: Register new user Credential added
+  description: ""
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: "#/components/schemas/users"
+    description: User's details
+    required: true
+  responses:
+    "200":
+      description: successfull operation
+    "404":
+      description: Movie not found

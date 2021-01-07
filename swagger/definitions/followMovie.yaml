@@ -1,0 +1,19 @@
+type: object
+properties:
+  _id:
+    type: string
+    format: int64
+  movie_id:
+    type: integer
+  user_id:
+    type: string
+  event_id:
+    type: string
+  status:
+    type: string
+    description: follow status
+    enum:
+      - follow
+      - unfollow
+xml:
+  name: followMovie

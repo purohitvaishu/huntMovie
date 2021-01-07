@@ -1,0 +1,7 @@
+description: This Project will give list of old movies, upcoming movies or trending movies.And also a registered user can add/remove movie in calendar or send info to his/her friend through email.
+version: 1.0.0
+title: HuntMovie
+termsOfService: ""
+license:
+  name: Apache 2.0
+  url: http://www.apache.org/licenses/LICENSE-2.0.html

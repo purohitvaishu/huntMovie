@@ -1,0 +1,10 @@
+api_key:
+  type: apiKey
+  name: api_key
+  in: header
+bearerAuth:
+  type: oauth2
+  flows:
+    implicit:
+      authorizationUrl: http://localhost:5000/users/auth/callback
+      scopes: {}

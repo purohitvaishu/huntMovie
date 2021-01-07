@@ -1,0 +1,36 @@
+/movies/:
+  $ref: ./movies.yaml
+/movies/upcoming/:
+  $ref: ./movieUpcoming.yaml
+/movies/trending/:
+  $ref: ./movieTrending.yaml
+/movies/info/:
+  $ref: ./movieInfo.yaml
+/upcoming/info/:
+  $ref: ./upcomingInfo.yaml
+/trending/info/:
+  $ref: ./trendingInfo.yaml
+/users/movies/watchlist:
+  $ref: ./movieWatchlist.yaml
+/users/notification:
+  $ref: ./notification.yaml
+/users/movies/share:
+  $ref: ./movieShare.yaml
+/users/upcoming/event:
+  $ref: ./upcomingEvent.yaml
+/users/auth/callback:
+  $ref: ./authCallback.yaml
+/auth/login:
+  $ref: ./authLogin.yaml
+/auth/register:
+  $ref: ./authRegister.yaml
+/auth/google:
+  $ref: ./authGoogle.yaml
+/auth/google/return:
+  $ref: ./googleReturn.yaml
+/auth/twitter:
+  $ref: ./authTwitter.yaml
+/auth/twitter/return:
+  $ref: ./twitterReturn.yaml
+/auth/logout:
+  $ref: ./authLogout.yaml

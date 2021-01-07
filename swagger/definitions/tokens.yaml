@@ -1,0 +1,18 @@
+type: object
+properties:
+  _id:
+    type: string
+    format: int64
+  access_token:
+    type: string
+  refresh_token:
+    type: string
+  token_type:
+    type: string
+  scope:
+    type: string
+  expiry_date:
+    type: string
+    format: date-time
+xml:
+  name: tokens
