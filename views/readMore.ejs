@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HuntMovie</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <base href="/">
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="all" />
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="../js/watchlist.js"></script>
+  <script src="../js/followUnfollow.js"></script>
+  <script src="../js/share.js"></script>
+</head>
+
+<body>
+  <div id="shell">
+
+    <div id="header">
+
+      <h1 id="logo"><a href="/">HuntMovie</a></h1>
+
+      <div id="navigation">
+        <ul>
+          <% if(!user) {%>
+          <li><a href="/auth/login" class="button">SIGN IN</a></li>
+          <%}%>
+          <% if(user) {%>
+          <li><a href="/auth/logout" class="button">Logout</a></li>
+          <%}%>
+        </ul>
+      </div>
+
+      <% include ./partials/messages %>
+          <div id="sub-navigation">
+            <ul>
+              <li><a href="/movies/list/?perPage=<%= perPage %>&page=1">MOVIES</a></li>
+              <li><a href="/movies/trending/?perPage=<%= perPage %>&page=1">TRENDING</a></li>
+              <li><a href="/movies/upcoming/?perPage=<%= perPage %>&page=1">COMING SOON</a></li>
+              <% if(user){%> <li><a href="/users/movies/watchlist/?perPage=<%= perPage %>&page=1">WATCHLIST</a></li>
+              <li><a href="/users/notification/?perPage=<%= perPage %>&page=1" class="badge1"
+                  data-badge="<%= notifications %>">NOTIFICATION</a></li>
+              <%}%>
+        </ul>
+      </div>
+    </div>
+
+    <div id="main">
+      <div class="read_container">
+        <img data-type="image" itemprop="image" src="http://image.tmdb.org/t/p/w185/<%= movie.poster_path %>"
+              style="width: 220px; height: 198px; ">
+              <div>
+                <h1><%= movie.title %></h1>
+              </div><br>
+              <div>
+                <div>
+                  <h3>Overview:</h3>
+                </div>
+                <div><%= movie.overview %></div>
+              </div><br>
+              <table>
+                <tr>
+                  <td>
+                    <h3>Release Date:</h3>
+                  </td>
+                  <td><%= date %></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3>Genre:</h3>
+                  </td>
+                  <td><%= genres %></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3>Languages:</h3>
+                  </td>
+                  <td><%= lang %></td>
+                </tr>
+                <% if(cast) {%>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3 style="color:burlywood">Featured Cast:</h3>
+                  </td>
+                </tr>
+                <tr>
+                  <% cast.forEach((cast) => {%>
+                  <td>
+                    <img data-type="image" itemprop="image"
+                      src="http://image.tmdb.org/t/p/w185/<%= cast.profile_path %>"
+                      style="width: 150; height: 198px; "><br>
+                    <%= cast.name %>
+                  </td>
+                  <%})%>
+                </tr>
+                <% }%>
+              </table><br>
+
+              <div class="options">
+                <% if(user) {%>
+                <a class="button" onclick="watchlist(this.id)" id="watchlist_<%= movie.id %>_<%= type %>" value
+                  style="color: white"><%= watchlistStatus %></a>
+                <% if(type === 'upcoming') {%> <a onclick="follow_unfollow(this.id)"
+                  id="<%= movie.id %>_<%= followStatus %>" class="button" style="color: white"
+                  value="follow"><%= followStatus %></a> <% }%>
+                <% if(type != 'watchlist'){%><a onclick="emailId(this.id)"
+                  id="<%= movie.id %>_<%= type %>_<%= movie.title %>" class="button" style="color: white">Share</a><%}%>
+            <%}%>
+              </div>
+
+          </div>
+
+      </div>
+
+    </div>
+
+    <div id="border-bottom"></div>
+
+    <div id="footer">
+      <p class="lf">Copyright &copy; 2019 <a href="#">HuntMovie</a> - All Rights Reserved</p>
+      <p class="rf">Design by <a href="#">HuntMovie.com</a></p>
+      <div style="clear:both;"></div>
+    </div>
+
+  </div>
+</body>
+<script>
+  function emailId(id) {
+    var emailId = prompt("Please enter your friends email id", "");
+    if (emailId != null) {
+      share(id, emailId)
+    }
+  }
+
+</script>
+
+</html>

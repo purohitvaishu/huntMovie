@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HuntMovie</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <base href="/">
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+  <div id="shell">
+
+    <div id="header">
+
+      <h1 id="logo"><a href="/">HuntMovie</a></h1>
+
+      <div id="navigation">
+        <ul>
+          <% if(!user) {%>
+          <li><a href="/auth/login" class="button">SIGN IN</a></li>
+          <%}%>
+          <% if(user) {%>
+          <li><a href="/auth/logout" class="button">Logout</a></li>
+          <%}%>
+        </ul>
+      </div>
+
+      <% include ./partials/messages %>
+          <div id="sub-navigation">
+            <ul>
+              <li><a href="/movies/list/?perPage=<%= perPage %>&page=1">MOVIES</a></li>
+              <li><a href="/movies/trending/?perPage=<%= perPage %>&page=1" style="color: red">TRENDING</a></li>
+              <li><a href="/movies/upcoming/?perPage=<%= perPage %>&page=1">COMING SOON</a></li>
+              <% if(user){%> <li><a href="/users/movies/watchlist/?perPage=<%= perPage %>&page=1">WATCHLIST</a></li>
+              <li><a href="/users/notification/?perPage=<%= perPage %>&page=1" class="badge1"
+                  data-badge="<%= notifications %>">NOTIFICATION</a>
+              </li>
+              <%}%>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container">
+          <div id="main">
+            <%if(movies){%>
+              <% movies.forEach((movies) => {%>
+              <div class="grid-container">
+                <div class="item2">
+                  <img data-type="image" itemprop="image" src="http://image.tmdb.org/t/p/w185/<%= movies.poster_path %>"
+                    style="width: 220px; height: 198px; object-fit: contain;">
+                </div>
+
+                <div class="item3"><span><%= movies.title %></span></div>
+                <div class="item6"><%= movies.overview.substring(0,200) %>...</div>
+                <div class="item5"><a href="/movies/trending/info/?<%= movies.id %>&trending&<%= movies.title %>"
+                    class="button" style="color: white">Read more</a></div>
+              </div>
+
+              <% }) %>
+              <%} %>
+          </div>
+
+          <% if(movies.length === 0){%>
+          <div class="blank">
+            <h3>No Contents to Show.</h3>
+          </div>
+
+          <%}%>
+      <% if (pages > 0) { %>
+          <ul class="pagination text-center">
+            <% if (current == 1) { %>
+            <li class="disabled"><a>First</a></li>
+            <% } else { %>
+            <li><a href="/movies/trending/?perPage=<%= perPage %>&page=1">First</a></li>
+            <% } %>
+            <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+            <% if (i !== 1) { %>
+            <li class="disabled"><a>...</a></li>
+            <% } %>
+            <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+            <% if (i == current) { %>
+            <li class="active"><a><%= i %></a></li>
+            <% } else { %>
+            <li><a href="/movies/trending//?perPage=<%= perPage %>&page=<%= i %>"><%= i %></a></li>
+            <% } %>
+            <% if (i == Number(current) + 4 && i < pages) { %>
+            <li class="disabled"><a>...</a></li>
+            <% } %>
+            <% } %>
+            <% if (current == pages) { %>
+            <li class="disabled"><a>Last</a></li>
+            <% } else { %>
+            <li><a href="/movies/trending//?perPage=<%= perPage %>&page=<%= pages %>">Last</a></li>
+            <% } %>
+          </ul>
+          <% } %>
+      </div>
+
+      <div id="border-bottom"></div>
+
+      <div id="footer">
+        <p class="lf">Copyright &copy; 2019 <a href="#">HuntMovie</a> - All Rights Reserved</p>
+        <p class="rf">Design by <a href="#">HuntMovie.com</a></p>
+        <div style="clear:both;"></div>
+      </div>
+
+    </div>
+</body>
+
+</html>
