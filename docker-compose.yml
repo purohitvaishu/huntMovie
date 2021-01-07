@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  moviedb:
+    build: .
+    volumes:
+      - .:/home/nodejs/app
+      - /home/nodejs/app/node_modules
+    ports:
+      - 5000:5000
+      - 9229:9229
+    command: npm start

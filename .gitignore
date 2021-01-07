@@ -1,0 +1,8 @@
+*.env
+/node_modules
+package-lock.json
+credentials.json
+.eslintrc.js
+.babelrc
+/logs/app.log
+/config
